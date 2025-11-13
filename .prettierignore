@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+dist/
+build/
+
+# Logs
+*.log
+
+# Coverage
+coverage/
+
+# Environment files
+.env*
+
+# Build outputs
+*.tsbuildinfo
+
+# IDE files
+.vscode/
+.idea/
+
+# Generated files
+*.min.js
+*.min.css
+
+# Package manager
+package-lock.json
+yarn.lock
+
+# Git
+.git/
+
+# OS
+.DS_Store
+Thumbs.db

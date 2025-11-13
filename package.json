@@ -1,0 +1,39 @@
+{
+  "name": "clapp",
+  "version": "1.0.0",
+  "description": "TypeScript CLI application with Commander library",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "bin": {
+    "clapp": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "start": "node dist/index.js",
+    "watch": "nodemon --exec ts-node src/index.ts",
+    "clean": "rm -rf dist",
+    "prepare": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "typescript",
+    "commander"
+  ],
+  "files": [
+    "dist/**/*"
+  ],
+  "dependencies": {
+    "@orion76/plugin": "^0.1.15",
+    "commander": "^14.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "nodemon": "^3.1.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
