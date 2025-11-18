@@ -1,39 +1,50 @@
 {
-  "name": "clapp",
+  "name": "@your-org/clapp-monorepo",
   "version": "1.0.0",
-  "description": "TypeScript CLI application with Commander library",
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "dist/index.js",
-  "bin": {
-    "clapp": "./dist/index.js"
+  "type": "module",
+  "description": "TypeScript CLI library monorepo with separate types and CLI packages",
+  "license": "MIT",
+  "author": "Your Name <your.email@example.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/clapp-monorepo.git"
   },
+  "homepage": "https://github.com/your-username/clapp-monorepo#readme",
+  "bugs": {
+    "url": "https://github.com/your-username/clapp-monorepo/issues"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "build": "tsc",
-    "dev": "ts-node src/index.ts",
-    "start": "node dist/index.js",
-    "watch": "nodemon --exec ts-node src/index.ts",
-    "clean": "rm -rf dist",
-    "prepare": "npm run build",
+    "start": "tsx --tsconfig tsconfig.json ./src/app/index.ts",
+    "start:prod": "NODE_OPTIONS='--no-warnings' tsx --tsconfig tsconfig.json ./src/app/index.ts",
+    "build": "npm run build --workspace=packages/utils && npm run build --workspace=packages/command && npm run build --workspace=packages/cli",
+    "build:command": "npm run build --workspace=packages/command",
+    "build:cli": "npm run build --workspace=packages/cli",
+    "build:utils": "npm run build --workspace=packages/utils",
+    "clean": "npm run clean --workspace=packages/command && npm run clean --workspace=packages/cli",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "cli",
     "typescript",
-    "commander"
+    "commander",
+    "plugin-system",
+    "library",
+    "nodejs",
+    "monorepo"
   ],
-  "files": [
-    "dist/**/*"
-  ],
-  "dependencies": {
-    "@orion76/plugin": "^0.1.15",
-    "commander": "^14.0.2"
+  "engines": {
+    "node": ">=14.0.0"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
-    "nodemon": "^3.1.11",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@orion76/clapp": "^1.0.0",
+    "@orion76/utils": "^0.0.1"
   }
 }

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "commonjs",
+    "module": "ES2020",
     "lib": [
       "ES2020"
     ],
@@ -10,6 +10,7 @@
     "baseUrl": "./src",
     "strict": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
@@ -18,16 +19,18 @@
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "paths": {
-      "@plugin-command": [
-        "lib"
-      ]
+      "@orion76/utils": ["packages/utils/src"],
+      "@orion76/clapp": ["packages/cli/src"],
+      "@orion76/clapp-command":["./packages/command/src"],
+      // "youtube/*": ["../video-cli/src/youtube/*"]
     }
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "packages/utils/src/logger/utils.ts"
   ],
   "exclude": [
     "node_modules",
     "dist"
   ]
-}
+} 

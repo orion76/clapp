@@ -1,0 +1,43 @@
+{
+  "name": "@orion76/clapp",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "TypeScript CLI library with Commander and plugin system",
+  "license": "MIT",
+  "author": "Your Name <your.email@example.com>",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "/dist"
+  ],
+  "keywords": [
+    "cli",
+    "typescript",
+    "commander",
+    "plugin-system",
+    "library"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "clean": "rm -rf dist",
+    "pack": "npm pack",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@orion76/plugin": "^0.1.15",
+    "commander": "^14.0.2",
+    "@orion76/clapp-command": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

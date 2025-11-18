@@ -1,0 +1,39 @@
+{
+  "name": "@orion76/utils",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "TypeScript CLI library with Commander and plugin system",
+  "license": "MIT",
+  "author": "Paul Glazkow",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "./dist"
+  ],
+  "keywords": [
+    "cli",
+    "typescript",
+    "commander",
+    "plugin-system",
+    "library"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "clean": "rm -rf dist",
+    "pack": "npm pack",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

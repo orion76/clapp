@@ -1,26 +1,66 @@
-# CLI App (clapp)
+# CLI Library (clapp)
 
-CLI приложение на TypeScript с использованием библиотеки Commander.
+TypeScript библиотека для создания CLI-приложений с системой плагинов.
 
-## Установка зависимостей
-
-```bash
-npm install
-```
-
-## Разработка
-
-### Запуск в режиме разработки
+## Установка
 
 ```bash
-npm run dev
+npm install clapp
 ```
 
-### Запуск с автоматической перезагрузкой
+## Использование
 
-```bash
-npm run watch
+### 1. Только типы (для создания плагинов команд)
+
+Если вы хотите только типы для создания собственных команд-плагинов:
+
+```typescript
+import { ICommandConfig, IPluginCommand, PluginCommandBase } from 'clapp/types';
+
+// Используйте типы для создания плагинов
+class MyCommand extends PluginCommandBase implements IPluginCommand {
+  action(args: string[], options: Record<string, unknown>): void {
+    console.log('Hello from my command!');
+  }
+}
 ```
+
+### 2. Полная CLI библиотека (для создания приложений)
+
+Если вы хотите создать полноценное CLI-приложение:
+
+```typescript
+import { Clapp, CLIConfig } from 'clapp/cli';
+
+const config: CLIConfig = {
+  name: 'my-app',
+  description: 'My CLI application',
+  version: '1.0.0',
+  commandsDirectory: './commands'
+};
+
+const app = Clapp.create(config);
+app.run();
+```
+
+### 3. Полный набор (обратная совместимость)
+
+```typescript
+import { Clapp, CLIConfig, ICommandConfig } from 'clapp';
+```
+
+## Entry Points
+
+- `clapp` - полный набор (рекомендуется для новых проектов)
+- `clapp/types` - только типы для создания плагинов
+- `clapp/cli` - только CLI библиотека для создания приложений
+
+## Архитектура
+
+Библиотека разделена на два основных компонента:
+
+1. **Типы плагинов** - интерфейсы и типы для создания команд
+2. **CLI реализация** - классы для создания и запуска CLI-приложений
 
 ## Сборка
 
@@ -28,66 +68,7 @@ npm run watch
 npm run build
 ```
 
-## Запуск собранного приложения
-
-```bash
-npm start
-```
-
-## Доступные команды
-
-### Справка
-
-```bash
-npm run dev -- --help
-```
-
-### Команда приветствия
-
-```bash
-npm run dev hello
-npm run dev hello --name "Ваше имя"
-```
-
-### Создание файла
-
-```bash
-npm run dev create-file test.txt
-npm run dev create-file test.txt --content "Привет, мир!"
-```
-
-### Информация о файле
-
-```bash
-npm run dev info test.txt
-```
-
-## Глобальная установка
-
-После сборки проекта можно установить CLI глобально:
-
-```bash
-npm run build
-npm install -g .
-```
-
-После этого можно использовать команду `clapp` в любом месте:
-
-```bash
-clapp --help
-clapp hello --name "Мир"
-clapp create-file example.txt
-clapp info example.txt
-```
-
-## Структура проекта
-
-```
-├── src/
-│   └── index.ts          # Основной файл приложения
-├── dist/                 # Собранные файлы (создается после npm run build)
-├── tsconfig.json         # Конфигурация TypeScript
-├── nodemon.json          # Конфигурация nodemon
-├── package.json          # Зависимости и скрипты
-└── README.md            # Данный файл
-```
+Создает 6 файлов в папке `dist/`:
+- `index.js` / `index.d.ts` - полный бандл
+- `types.js` / `types.d.ts` - только типы
+- `cli.js` / `cli.d.ts` - только CLI библиотека
