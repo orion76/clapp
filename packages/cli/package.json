@@ -36,7 +36,7 @@
   "dependencies": {
     "@orion76/plugin": "^0.1.15",
     "commander": "^14.0.2",
-    "@orion76/clapp-command": "^1.0.0"
+    "@orion76/clapp-command": "^0.0.1"
   },
   "devDependencies": {
     "typescript": "^5.9.3"
