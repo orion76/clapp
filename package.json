@@ -24,6 +24,7 @@
     "build:cli": "npm run build --workspace=packages/cli",
     "build:utils": "npm run build --workspace=packages/utils",
     "clean": "npm run clean --workspace=packages/command && npm run clean --workspace=packages/cli",
+    "release": "npm run build && npm publish --workspace=packages/utils && npm publish --workspace=packages/command && npm publish --workspace=packages/cli",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
