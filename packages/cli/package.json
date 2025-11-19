@@ -1,6 +1,6 @@
 {
   "name": "@orion76/clapp",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "type": "module",
   "description": "TypeScript CLI library with Commander and plugin system",
   "license": "MIT",
@@ -30,7 +30,8 @@
     "build": "rm -rf dist && tsc",
     "clean": "rm -rf dist",
     "pack": "npm pack",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test":"echo tests for clapp!"
   },
   "dependencies": {
     "@orion76/plugin": "^0.1.15",

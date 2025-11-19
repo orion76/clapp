@@ -24,3 +24,15 @@ export class InfoCommandPlugin extends PluginCommandBase {
     logger.printObject(packageJson, 'Project info', titles, 2);
   }
 }
+
+function printPackageJson(projectRoot: string) {
+  const packageJson: IPackageJson = JSON.parse(fs.readFileSync(path.join(projectRoot, 'package.json'), 'utf8'));
+
+  const titles: TPropertiesTitles<IPackageJson> = {
+    name: 'Name',
+    version: 'Version',
+    scripts: 'Scripts'
+  };
+
+  logger.printObject(packageJson, 'Project info', titles, 2);
+}
