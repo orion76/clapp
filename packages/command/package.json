@@ -23,6 +23,11 @@
     "plugin-system",
     "interfaces"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orion76/clapp.git",
+    "directory": "packages/command"
+  },
   "engines": {
     "node": ">=14.0.0"
   },
