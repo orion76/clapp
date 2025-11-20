@@ -1,6 +1,6 @@
 {
   "name": "@orion76/clapp-command",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "description": "TypeScript types for CLI command plugins",
   "license": "MIT",
@@ -31,7 +31,7 @@
     "clean": "rm -rf dist",
     "pack": "npm pack",
     "prepublishOnly": "npm run build",
-    "test":"echo tests for clapp command!"
+    "test": "echo tests for clapp command!"
   },
   "devDependencies": {
     "dts-bundle-generator": "^9.5.1",

@@ -2,6 +2,8 @@
 
 [![npm version](https://img.shields.io/npm/v/@orion76/clapp.svg)](https://www.npmjs.com/package/@orion76/clapp)
 
+[Русский](./docs/ru/README.md) | [简体中文](./docs/cn/README.md)
+
 The core CLI engine for the `clapp` framework. This package provides a powerful and extensible command-line application framework for Node.js, built with TypeScript, Commander.js, and a dynamic plugin system.
 
 ## Features
@@ -174,4 +176,4 @@ export default myCommand;
 
 MIT
 
-[Русский](./docs/ru/README.md) | [简体中文](./docs/cn/README.md)
+
