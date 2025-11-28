@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { getCwd, getProjectRoot, getUserProfileDirectory, IPackageJson, loggerFactory } from '@orion76/utils';
-import { TPropertiesTitles } from '@orion76/utils/dist/logger/types';
+import { TPropertiesTitles } from '@orion76/utils';
 
 const logger = loggerFactory(false, 'command_info', 'Command Info');
 
@@ -21,7 +21,7 @@ export class InfoCommandPlugin extends PluginCommandBase {
       version: 'Version',
     };
 
-    logger.printObject(packageJson, 'Project info', titles, 2);
+    logger.printObject('Project info', packageJson, titles, 2);
   }
 }
 
@@ -31,8 +31,8 @@ function printPackageJson(projectRoot: string) {
   const titles: TPropertiesTitles<IPackageJson> = {
     name: 'Name',
     version: 'Version',
-    scripts: 'Scripts'
+    scripts: 'Scripts',
   };
 
-  logger.printObject(packageJson, 'Project info', titles, 2);
+  logger.printObject('Project info', packageJson, titles, 2);
 }

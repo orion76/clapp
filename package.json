@@ -1,5 +1,5 @@
 {
-  "name": "@your-org/clapp-monorepo",
+  "name": "orion76",
   "version": "1.0.0",
   "type": "module",
   "description": "TypeScript CLI library monorepo with separate types and CLI packages",
@@ -19,12 +19,14 @@
   "scripts": {
     "start": "tsx --tsconfig tsconfig.json ./src/app/index.ts",
     "start:prod": "NODE_OPTIONS='--no-warnings' tsx --tsconfig tsconfig.json ./src/app/index.ts",
-    "build": "npm run build --workspace=packages/utils && npm run build --workspace=packages/command && npm run build --workspace=packages/cli",
-    "build:command": "npm run build --workspace=packages/command",
-    "build:cli": "npm run build --workspace=packages/cli",
-    "build:utils": "npm run build --workspace=packages/utils",
-    "clean": "npm run clean --workspace=packages/command && npm run clean --workspace=packages/cli",
-    "release": "npm run build && npm publish --workspace=packages/utils && npm publish --workspace=packages/command && npm publish --workspace=packages/cli",
+    "build": "npm run build --workspace=packages/clapp-utils && npm run build --workspace=packages/clapp-command && npm run build --workspace=packages/clapp",
+    "build:command": "npm run build --workspace=packages/clapp-command",
+    "build:clapp": "npm run build --workspace=packages/clapp",
+    "i:cli": "npm i --workspace=packages/clapp",
+    "build:utils": "npm run build --workspace=packages/clapp-utils",
+    "clean": "npm run clean --workspace=packages/clapp-command && npm run clean --workspace=packages/clapp",
+    "clean:src": "./scripts/clean-src.sh",
+    "release": "npm run build && npm publish --workspace=packages/clapp-utils && npm publish --workspace=packages/clapp-command && npm publish --workspace=packages/clapp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -44,9 +46,5 @@
     "@types/node": "^24.10.1",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
-  },
-  "dependencies": {
-    "@orion76/clapp": "^1.0.0",
-    "@orion76/utils": "^0.0.1"
   }
 }
