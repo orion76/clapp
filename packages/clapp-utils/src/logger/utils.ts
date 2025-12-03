@@ -1,4 +1,6 @@
-import { TPropertiesTitles } from './types';
+import { TPropertiesTitles } from "./types";
+
+
 
 export function noop() {}
 export function capitalizeFirstLetter(str: string) {
@@ -7,25 +9,54 @@ export function capitalizeFirstLetter(str: string) {
   }
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+type TLogValue = string | string[];
+
+type URowTypes = 'one-line' | 'multi-lines';
+
+interface IRowBase {
+  type: URowTypes;
+  title: string;
+}
+
+interface IRowOneLine extends IRowBase {
+  type: 'one-line';
+  text: TLogValue;
+}
+
+interface IRowMultiLines extends IRowBase {
+  type: 'multi-lines';
+  lines: string[];
+}
+type URow = IRowOneLine | IRowMultiLines;
+
 export function printObject<O extends {}>(title: string, obj: O, titles?: TPropertiesTitles<O>, padding: number = 0) {
-  let _titles: [string, string][];
+  let _titles: [string, string | undefined][];
   if (titles) {
-    _titles = Object.entries(obj);
+    _titles = Object.keys(obj).map((key) => [key, titles[key as keyof O]]);
   } else {
     _titles = Object.keys(obj).map((key) => [key, capitalizeFirstLetter(key)]);
   }
 
-  const rows: [string, string][] = _titles
-    .filter(([_, title]) => title !== undefined)
+  const rows: URow[] = _titles
+    .filter(([_, title]) => !!title)
     .map(([property, title]) => {
-      const value = obj[property as keyof O];
+      const value = obj[property as keyof O] as TLogValue;
       const p = ' '.repeat(padding);
+      const rowTitle = `${p}${title}`;
+
       if (Array.isArray(value)) {
-        // const output: string[] = value.map((str) => ` ${p}- ${str}`);
-        const output: string[] = [];
-        return [`${p}${title}:\n`, output.join('\n')];
+        return {
+          type: 'multi-lines',
+          title: rowTitle,
+          lines: value,
+        };
       } else {
-        return [(p + title) as string, value as string];
+        return {
+          type: 'one-line',
+          title: rowTitle,
+          text: value,
+        };
       }
     });
   console.log(`\n${title}\n---------------------------------------`);
@@ -33,11 +64,17 @@ export function printObject<O extends {}>(title: string, obj: O, titles?: TPrope
   console.log(`---------------------------------------\n`);
 }
 
-function printFormattedArray(fields: [string, string][]) {
-  const maxTitleLength = Math.max(...fields.map(([title]) => title.length));
+function printFormattedArray(fields: URow[]) {
+  const titlesLength = fields.map(({ title }) => title.length);
+  const maxTitleLength = titlesLength.length > 0 ? Math.max(...titlesLength) : 0;
 
-  fields.forEach(([title, value]) => {
-    const paddedTitle = title.padEnd(maxTitleLength);
-    console.log(`${paddedTitle} : ${value}`);
+  fields.forEach((field) => {
+    const paddedTitle = field.title.padEnd(maxTitleLength);
+    if (field.type === 'multi-lines') {
+      console.log(`${paddedTitle} :`);
+      field.lines.forEach((line) => console.log(`  ${line}`));
+    } else {
+      console.log(`${paddedTitle} : ${field.text}`);
+    }
   });
 }

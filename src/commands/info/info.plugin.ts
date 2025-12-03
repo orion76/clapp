@@ -1,14 +1,21 @@
-import { PluginCommandBase } from '@orion76/clapp-command';
+import { ICommandPluginDefinition, PluginCommandBase } from '@orion76/clapp-command';
 
 import fs from 'fs';
 import path from 'path';
 
-import { getCwd, getProjectRoot, getUserProfileDirectory, IPackageJson, loggerFactory } from '@orion76/utils';
-import { TPropertiesTitles } from '@orion76/utils';
+import { getCwd, getProjectRoot, getUserProfileDirectory, IPackageJson, loggerFactory } from '@orion76/clapp-utils';
+import { TPropertiesTitles } from '@orion76/clapp-utils';
 
-const logger = loggerFactory(false, 'command_info', 'Command Info');
+const logger = loggerFactory({
+  name: 'command_info',
+});
+
+export interface ICommandInfoConfig {}
 
 export class InfoCommandPlugin extends PluginCommandBase {
+  constructor(public definition: ICommandPluginDefinition<ICommandInfoConfig>) {
+    super();
+  }
   action(args: string[], opts: Record<string, unknown>): void {
     const userProfile = getUserProfileDirectory();
     const cwd = getCwd();

@@ -5,5 +5,5 @@
 
 // Re-export all types and interfaces
 export type { ICommandOption, ICommandArgument } from './types/commander';
-export type { IPluginCommand, ICommandDefintion, ICommandPluginDefinition } from './types/plugin';
+export type { IPluginCommand, ICommandDefintion, IPluginCommandDefinition as ICommandPluginDefinition } from './types/plugin';
 export { PluginCommandBase, PLUGIN_COMMAND_TYPE } from './plugin.base';

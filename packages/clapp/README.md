@@ -19,7 +19,7 @@ The core CLI engine for the `clapp` framework. This package provides a powerful 
 This package is intended to be used as part of the `clapp` monorepo, but it can also be installed directly:
 
 ```bash
-npm install @orion76/clapp @orion76/clapp-command @orion76/utils
+npm install @orion76/clapp @orion76/clapp-command @orion76/clapp-utils
 ```
 
 ## Usage

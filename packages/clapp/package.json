@@ -33,12 +33,13 @@
     "test": "echo tests for clapp!"
   },
   "dependencies": {
+    "@orion76/clapp-command": "^0.0.2",
+    "@orion76/clapp-utils": "^0.0.2",
     "@orion76/plugin": "^0.1.15",
-    "commander": "^14.0.2",
-    "@orion76/clapp-command": "^0.0.1",
-    "@orion76/clapp-utils": "^0.0.1"
+    "commander": "^14.0.2"
   },
   "devDependencies": {
+    "@types/node": "^24.10.1",
     "typescript": "^5.9.3"
   }
 }

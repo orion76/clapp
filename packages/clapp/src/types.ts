@@ -1,6 +1,13 @@
 import { IPackageJson } from '@orion76/clapp-utils';
 
 export type TCommandFindFunction = (fileName: string) => boolean;
+
+export interface IPluginDiscoveryConfig {
+  commandsDirectory: string;
+  commandFindFunc: TCommandFindFunction;
+  isAvailableProjectCheck: (packageJson: IPackageJson) => boolean;
+}
+
 /**
  * CLI application configuration
  */
@@ -9,9 +16,8 @@ export interface CLIConfig {
   description: string;
   version: string;
   projects: string[];
-  commandsDirectory: string;
-  commandFindFunc: TCommandFindFunction;
-  isAvailableProjectCheck: (packageJson: IPackageJson) => boolean;
+  commandDiscovery: IPluginDiscoveryConfig;
+  contextDiscovery: IPluginDiscoveryConfig;
 }
 
 export interface IClapp {

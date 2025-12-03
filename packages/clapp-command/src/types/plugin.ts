@@ -8,12 +8,14 @@ export interface ICommandDefintion {
   description: string;
 }
 
-export interface ICommandPluginDefinition<C = {}> extends IPluginDefinition {
-  commandConfig: ICommandDefintion & C;
+export interface IPluginCommandDefinition<C = {}> extends IPluginDefinition {
+  config: C;
+  command: ICommandDefintion;
   pluginClass: IType<IPluginCommand>;
 }
 
-export interface IPluginCommand<C = {}> extends IPlugin {
-  definition: ICommandPluginDefinition<C>;
-  action(args: string[], opts: Record<string, string>): void;
+export interface IPluginCommand<C = {}, A = {}> extends IPlugin {
+  definition: IPluginCommandDefinition<C>;
+  action(args: A): void;
+  getArguments(args: string[], opts: Record<string, unknown>): A;
 }

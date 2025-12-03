@@ -38,6 +38,6 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@orion76/clapp-utils": "^0.0.1"
+    "@orion76/clapp-utils": "^0.0.2"
   }
 }

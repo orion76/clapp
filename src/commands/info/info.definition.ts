@@ -9,7 +9,7 @@ const infoCommand: ICommandPluginDefinition = {
   id: 'info',
   label: 'Get current project information',
 
-  commandDefinition: { description: 'Get current project information' },
+  commandConfig: { description: 'Get current project information' },
   pluginClass: InfoCommandPlugin,
 };
 

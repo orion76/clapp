@@ -17,7 +17,7 @@
 该软件包旨在作为 `clapp` monorepo 的一部分使用，但也可以直接安装：
 
 ```bash
-npm install @orion76/clapp @orion76/clapp-command @orion76/utils
+npm install @orion76/clapp @orion76/clapp-command @orion76/clapp-utils
 ```
 
 ## 使用方法

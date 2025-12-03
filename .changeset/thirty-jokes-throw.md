@@ -1,5 +1,5 @@
 ---
-'@orion76/utils': patch
+'@orion76/clapp-utils': patch
 ---
 
 test

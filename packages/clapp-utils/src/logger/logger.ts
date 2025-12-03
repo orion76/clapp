@@ -1,46 +1,35 @@
-import { ELogLevel, ILogger, ILoggerConfig, TLogFunction, TLoggerTransport, TPropertiesTitles } from './types';
-import { noop, printObject } from './utils';
+import {
+  ILogger,
+  ILoggerConfig,
+  ILoggerTransport,
+  UConsoleLevels,
+  ULogFormatOptions,
+} from './types';
 
-export function loggerFactory(enabled: boolean, name: string, prefix?: string): ILogger {
-  return new Logger({ name, enabled, prefix }, console);
-}
-
-class Logger implements ILogger {
+export class Logger<Names extends string, Levels extends UConsoleLevels, Tags extends string>
+  implements ILogger<Levels, Tags>
+{
   private _prefix!: string;
+  // Dynamically add log level methods
 
   constructor(
-    private config: ILoggerConfig,
-    private transport: TLoggerTransport
-  ) {
-    this.init();
+    private config: ILoggerConfig<Names, Levels, Tags>,
+    private transport: ILoggerTransport
+  ) {}
+
+  log(vars: unknown, level?: Levels, tags?: Tags[], formatOptions?: ULogFormatOptions) {
+    const _level = level || 'log';
+    const prefix = this.formatPrefix(this.getPrefix());
+    const _vars = [prefix, ...(Array.isArray(vars) ? vars : [vars])];
+    this.transport.send(_level, _vars, tags);
   }
 
-  init() {
-    if (this.config.enabled) {
-      this.log = this.createLog(ELogLevel.LOG);
-      this.warn = this.createLog(ELogLevel.WARN);
-      this.error = this.createLog(ELogLevel.ERROR);
-    } else {
-      this.log = noop;
-      this.warn = noop;
-      this.error = noop;
-    }
+  format(vars: unknown, options: ULogFormatOptions) {
+
   }
 
-  createLog(level: ELogLevel): TLogFunction {
-    return (...vars: any[]) => this._log(level, vars);
-  }
-
-  log!: TLogFunction;
-  warn!: TLogFunction;
-  error!: TLogFunction;
-  printObject = printObject;
-
-  private _log(level: ELogLevel, vars: any[]) {
-    if (!this.config.enabled) {
-      return;
-    }
-    this.transport[level](this.getPrefix(), ...vars);
+  formatPrefix(prefix: string) {
+    return `[${prefix}]`;
   }
 
   private getPrefix() {

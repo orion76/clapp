@@ -3,17 +3,12 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { ICommandPluginDefinition, PLUGIN_COMMAND_TYPE } from '@orion76/clapp-command';
-import {
-  getProjectRoot,
-  getUserProfileDirectory,
-  isString,
-  loadPackageJson,
-  loggerFactory,
-} from '@orion76/clapp-utils';
+import { getProjectRoot, getUserProfileDirectory, isString, loadPackageJson } from '@orion76/clapp-utils';
+import { getLogger } from '../../../logger-init';
+import { IPluginDiscoveryConfig } from '../../../types';
 import { getStartDirectories } from './utils';
-import { CLIConfig } from '../../../types';
 
-const logger = loggerFactory(false, 'command_plugin_discovery', 'Command Discovery');
+const logger = getLogger('command_discovery');
 
 /**
  * Plugin discovery for commands
@@ -25,7 +20,7 @@ export class CommandPluginDiscovery extends PluginDiscoveryBase<ICommandPluginDe
 
   constructor(
     private projects: string[],
-    private config: CLIConfig
+    private config: IPluginDiscoveryConfig
   ) {
     super();
     // Don't load definitions in constructor anymore
@@ -37,16 +32,16 @@ export class CommandPluginDiscovery extends PluginDiscoveryBase<ICommandPluginDe
 
   async findDefinitions(): Promise<ICommandPluginDefinition[]> {
     const definitionFiles = this.findDefinitionFileNames();
-    logger.log('++ [CLAPP] commands\n', definitionFiles.join('\n'));
+    logger.log(['++ [CLAPP] commands\n', definitionFiles.join('\n')]);
 
     // Load all definitions asynchronously
-    const configPromises = definitionFiles.map((filePath) => this.loadCommandFromFile(filePath));
+    const configPromises = definitionFiles.map((filePath) => this.loadModuleFromFile(filePath));
 
     const configs = await Promise.all(configPromises);
 
     function filterEmpty(config: ICommandPluginDefinition | null): config is ICommandPluginDefinition {
       if (!config) {
-        logger.error('Failed to load some command definitions');
+        logger.log('Failed to load some command definitions', 'error');
         return false;
       }
       return true;
@@ -67,7 +62,7 @@ export class CommandPluginDiscovery extends PluginDiscoveryBase<ICommandPluginDe
    * @param filePath Path to command file
    * @returns Command configuration or null
    */
-  private async loadCommandFromFile(filePath: string): Promise<ICommandPluginDefinition | null> {
+  private async loadModuleFromFile(filePath: string): Promise<ICommandPluginDefinition | null> {
     try {
       // Convert to file URL for dynamic import
       const fileUrl = `file://${filePath}`;
@@ -85,11 +80,10 @@ export class CommandPluginDiscovery extends PluginDiscoveryBase<ICommandPluginDe
   }
 
   getCommandPaths(commandsDirectory: string): string[] {
- 
     const searchDir = getUserProfileDirectory();
     const projects = [...this.projects, process.cwd()];
     const startDirectories = getStartDirectories(projects);
-    logger.printObject('Find commands', { searchDir, startDirectories,projects });
+    logger.log(['Find commands', { searchDir, startDirectories, projects }]);
 
     const { isAvailableProjectCheck } = this.config;
     const commandPaths = startDirectories
@@ -101,13 +95,13 @@ export class CommandPluginDiscovery extends PluginDiscoveryBase<ICommandPluginDe
       .map((projectRoot) => {
         const commandPath = path.join(projectRoot, commandsDirectory);
         if (!fs.existsSync(commandPath)) {
-          logger.warn('Command path not found:' + commandPath);
+          logger.log(['Command path not found:' + commandPath], 'warn');
           return;
         }
         return commandPath;
       })
       .filter(isString);
-    logger.log('  ', 'COMMANDS', commandPaths);
+    logger.log(['COMMANDS', commandPaths]);
     return commandPaths;
   }
 

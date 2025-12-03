@@ -1,3 +1,4 @@
+export { LoggerCollection } from './collection';
 
-export { loggerFactory } from './logger';
-export { TPropertiesTitles } from './types';
+export { loggerFactory } from './logger-factory';
+export * from './types';

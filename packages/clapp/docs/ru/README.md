@@ -17,7 +17,7 @@
 Этот пакет предназначен для использования в составе монорепозитория `clapp`, но его также можно установить напрямую:
 
 ```bash
-npm install @orion76/clapp @orion76/clapp-command @orion76/utils
+npm install @orion76/clapp @orion76/clapp-command @orion76/clapp-utils
 ```
 
 ## Использование
