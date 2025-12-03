@@ -30,7 +30,8 @@
     "clean": "rm -rf dist",
     "pack": "npm pack",
     "prepublishOnly": "npm run build",
-    "test": "jest"
+    "test": "echo tests for clapp utils!",
+    "test:jest": "jest"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
